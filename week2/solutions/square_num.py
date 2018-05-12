@@ -4,7 +4,7 @@ def square(x):
   '''
   return x**2
 
-def fourthPower(x):
+def fourth_power(x):
     '''
     x: int or float.
     '''

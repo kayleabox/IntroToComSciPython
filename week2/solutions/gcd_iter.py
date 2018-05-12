@@ -1,4 +1,4 @@
-def gcdIter(a, b):
+def gcd_iter(a, b):
   if a >= b:
     inc = b
   else:

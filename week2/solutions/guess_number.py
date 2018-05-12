@@ -1,6 +1,7 @@
 import random
 
-def getUserInput(guess):
+#with truncating
+def get_user_input(guess):
   print('Is your secret number ' + str(guess) + '?')
   return (input("Enter 'h' to indicate the guess is too high."
   + " Enter 'l' to indicate the guess is too low."
@@ -25,11 +26,8 @@ while userInput != 'c':
   elif userInput != 'l' or userInput != 'h' or userInput != 'c':
     print('Sorry, I did not understand your input.')
   
-#with rounding
-# Paste your code into this box
-import random
-
-def getUserInput(guess):
+#with rounding instead of truncating
+def get_user_input_with_rounding(guess):
   print('Is your secret number ' + str(guess) + '?')
   return (input("Enter 'h' to indicate the guess is too high."
   + " Enter 'l' to indicate the guess is too low."
