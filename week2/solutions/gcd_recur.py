@@ -14,3 +14,4 @@ print('the gcd of ' + str(a) + ' and ' + str(b) + ' is: ' + str(gcd_recur(a, b))
 a = 10
 b = 8
 print('the gcd of ' + str(a) + ' and ' + str(b) + ' is: ' + str(gcd_recur(a, b)))
+print('\n')

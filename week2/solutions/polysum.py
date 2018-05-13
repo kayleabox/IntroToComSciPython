@@ -22,3 +22,4 @@ print('polysum of a polygon with ' + str(n) + ' sides of ' + str(s) + ' length i
 n = 5
 s = 6
 print('polysum of a polygon with ' + str(n) + ' sides of ' + str(s) + ' length is ' + str(polysum(n, s)))
+print('\n')

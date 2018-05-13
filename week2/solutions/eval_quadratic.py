@@ -7,3 +7,4 @@ def eval_quadratic(a, b, c, x):
 
 print('eval_quadratic:')
 print('2x^2 + 3x + 4 where x = 5 is: ' + str(eval_quadratic(2, 3, 4, 5)))
+print('\n')
