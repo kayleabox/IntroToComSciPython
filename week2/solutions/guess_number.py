@@ -1,6 +1,6 @@
 import random
 
-#with truncating
+#with truncating and starting at 50 each time for the class
 def get_user_input(guess):
   print('Is your secret number ' + str(guess) + '?')
   return (input("Enter 'h' to indicate the guess is too high."
@@ -8,7 +8,7 @@ def get_user_input(guess):
   + " Enter 'c' to indicate I guessed correctly.")) 
 
 user_input = ''
-guess = 50 #random.randint(0, 100)
+guess = 50
 high = 100
 low = 0
 
@@ -26,7 +26,7 @@ while user_input != 'c':
   elif user_input != 'l' or user_input != 'h' or user_input != 'c':
     print('Sorry, I did not understand your input.')
   
-#with rounding instead of truncating
+#with rounding instead of truncating and starts with random guess value instead of 50
 def get_user_input_with_rounding(guess):
   print('Is your secret number ' + str(guess) + '?')
   return (input("Enter 'h' to indicate the guess is too high."

@@ -17,9 +17,10 @@ rate x Monthly unpaid balance)
 def cal_min_pay(balance, annual_interest_rate, monthly_payment_rate):
   monthly_interest = annual_interest_rate/12
   remain_balance =  balance
+
   for month in range(12):
     minimun_payment = monthly_payment_rate * remain_balance
     unpaid = remain_balance - minimun_payment 
     remain_balance = unpaid + (monthly_interest * unpaid)
-
+    
   print('Remaining balance: ' + str(round(remain_balance, 2)))

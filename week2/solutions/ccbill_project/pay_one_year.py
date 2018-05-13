@@ -17,9 +17,11 @@ def pay_one_year(balance, annual_interest_rate):
 
 def get_fixed_rate(monthly_payment, balance, monthly_interest):
   remain_balance = balance
+
   for month in range(12):
     unpaid = remain_balance - monthly_payment 
     remain_balance = unpaid + (monthly_interest * unpaid)
+    
   if(remain_balance <= 0):
     return monthly_payment
   return get_fixed_rate(monthly_payment + 10, balance, monthly_interest)
