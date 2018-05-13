@@ -24,3 +24,7 @@ def cal_min_pay(balance, annual_interest_rate, monthly_payment_rate):
     remain_balance = unpaid + (monthly_interest * unpaid)
     
   print('Remaining balance: ' + str(round(remain_balance, 2)))
+
+print('cal_min_pay:')
+cal_min_pay(484, 0.2, 0.04)
+print('\n')

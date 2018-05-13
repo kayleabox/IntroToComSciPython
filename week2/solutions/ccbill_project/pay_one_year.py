@@ -25,3 +25,7 @@ def get_fixed_rate(monthly_payment, balance, monthly_interest):
   if(remain_balance <= 0):
     return monthly_payment
   return get_fixed_rate(monthly_payment + 10, balance, monthly_interest)
+
+print('pay_one_year:')
+pay_one_year(3329, 0.2)
+print('\n')

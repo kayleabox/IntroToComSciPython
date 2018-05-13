@@ -73,3 +73,7 @@ def check_monthly_payment(balance, monthly_interest, monthly_payment):
     unpaid = remain_balance - monthly_payment 
     remain_balance = unpaid + (monthly_interest * unpaid)
   return remain_balance
+
+print('pay_one_year_bi:')
+pay_one_year_bi(320000, 0.2)
+print('\n')
