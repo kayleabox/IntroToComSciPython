@@ -14,3 +14,11 @@ def polysum(n, s):
   area = (0.25*n*s**2)/(math.tan(math.pi/n))
   perimeter = n * s
   return round(area + perimeter**2, 4)
+
+print('polysum:')
+n = 4
+s = 3
+print('polysum of a polygon with ' + str(n) + ' sides of ' + str(s) + ' length is ' + str(polysum(n, s)))
+n = 5
+s = 6
+print('polysum of a polygon with ' + str(n) + ' sides of ' + str(s) + ' length is ' + str(polysum(n, s)))

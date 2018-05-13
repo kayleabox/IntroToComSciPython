@@ -8,3 +8,6 @@ def is_in(char, aStr):
   elif char < aStr[len(aStr)//2]:
     return is_in(char, aStr[0 : len(aStr)//2])
   return char == aStr[len(aStr)//2]
+
+print('x is in fghklnz: ' + str(is_in('x', 'fghklnz')))
+print('n is in fghklnz: ' + str(is_in('n', 'fghklnz')))
