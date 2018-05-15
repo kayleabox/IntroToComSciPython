@@ -117,31 +117,33 @@ def hangman(secretWord):
     # FILL IN YOUR CODE HERE...
     print('Welcome to the game, Hangman!')
     print('I am thinking of a word that is ' + str(len(secretWord)) + ' letters long.')
-    isPlaying = True
-    guessesLeft = 8
-    lettersGuessed = []
-    isGameWon = False
+    is_playing = True
+    guesses_left = 8
+    letters_guessed = []
 
-    while isPlaying:
-        print('You have ' + str(guessesLeft) + ' guesses left.')
-        print('Available letters: ' +  getAvailableLetters(lettersGuessed))
-        guess = input('Please guess a letter: ')
-        if guess in secretWord and guess not in lettersGuessed:
-            lettersGuessed.append(guess)
-            print('Good guess: ' + getGuessedWord(secretWord, lettersGuessed))
-            if isWordGuessed(secretWord, lettersGuessed):
+    while is_playing:
+        print('-----------')
+        print('You have ' + str(guesses_left) + ' guesses left.')
+        print('Available letters: ' +  getAvailableLetters(letters_guessed))
+        guess = input('Please guess a letter: ').lower()
+        if guess in secretWord and guess not in letters_guessed:
+            letters_guessed.append(guess)
+            print('Good guess: ' + getGuessedWord(secretWord, letters_guessed))
+            if isWordGuessed(secretWord, letters_guessed):
+                print('-----------')
                 print('Congratulations, you won!')
-                isPlaying = False
-        elif guess in lettersGuessed:
-          print('Oops! You\'ve already guessed that letter: ' + getGuessedWord(secretWord, lettersGuessed))
+                is_playing = False
+        elif guess in letters_guessed:
+          print('Oops! You\'ve already guessed that letter: ' + getGuessedWord(secretWord, letters_guessed))
         else:
-            guessesLeft -= 1
-            lettersGuessed.append(guess)
-            print('Oops! That letter is not in my word: ' + getGuessedWord(secretWord, lettersGuessed))
+            guesses_left -= 1
+            letters_guessed.append(guess)
+            print('Oops! That letter is not in my word: ' + getGuessedWord(secretWord, letters_guessed))
 
-        if guessesLeft <= 0: 
+        if guesses_left <= 0: 
+          print('-----------')
           print('Sorry, you ran out of guesses. The word was ' + secretWord + '.')
-          isPlaying = False      
+          is_playing = False      
       
 
 
