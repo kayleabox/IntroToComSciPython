@@ -61,7 +61,6 @@ def isWordGuessed(secretWord, lettersGuessed):
         return False
     return isWordGuessed
 
-
 def getGuessedWord(secretWord, lettersGuessed):
     '''
     secretWord: string, the word the user is guessing
@@ -78,7 +77,6 @@ def getGuessedWord(secretWord, lettersGuessed):
         guessedLetters += '_'
     return guessedLetters
 
-
 def getAvailableLetters(lettersGuessed):
     '''
     lettersGuessed: list, what letters have been guessed so far
@@ -92,7 +90,6 @@ def getAvailableLetters(lettersGuessed):
       if letter not in lettersGuessed:
         availableLetters += letter
     return availableLetters
-
 
 def hangman(secretWord):
     '''
@@ -144,15 +141,6 @@ def hangman(secretWord):
           print('-----------')
           print('Sorry, you ran out of guesses. The word was ' + secretWord + '.')
           is_playing = False      
-      
-
-
-
-
-
-# When you've completed your hangman function, uncomment these two lines
-# and run this file to test! (hint: you might want to pick your own
-# secretWord while you're testing)
 
 secretWord = chooseWord(wordlist).lower()
 hangman(secretWord)
