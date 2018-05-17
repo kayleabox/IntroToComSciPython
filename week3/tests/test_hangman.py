@@ -6,7 +6,6 @@ from solutions.hangman.ps3_hangman import isWordGuessed
 from solutions.hangman.ps3_hangman import getGuessedWord
 from solutions.hangman.ps3_hangman import getAvailableLetters
 
-
 class IsWordGuessedTest1(unittest.TestCase):
   def test(self):
     secretWord = 'word'
