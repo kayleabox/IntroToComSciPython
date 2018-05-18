@@ -2,7 +2,7 @@ import os
 import sys
 import unittest
 
-from solutions.tuples.odd_tuples import odd_tuples
+from solutions.odd_tuples import odd_tuples
 
 class OddTuplesTest1(unittest.TestCase):
   def test(self):

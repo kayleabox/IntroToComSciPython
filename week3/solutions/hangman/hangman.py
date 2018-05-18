@@ -54,7 +54,7 @@ def get_guessed_word(secret_word, letters_guessed):
     if letter in letters_guessed:
       guessed_letters += letter
     else:
-      guessed_letters += ' _ '
+      guessed_letters += '_'
   return guessed_letters
 
 def get_available_letters(letters_guessed):
@@ -120,6 +120,3 @@ def hangman(secret_word):
       print('Sorry, you ran out of guesses. The word was ' + secret_word + '.')
       is_playing = False      
 
-wordlist = load_words()
-secret_word = choose_word(wordlist).lower()
-hangman(secret_word)

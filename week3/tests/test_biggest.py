@@ -2,7 +2,7 @@ import os
 import sys
 import unittest
 
-from solutions.dictionaries.biggest import biggest
+from solutions.biggest import biggest
 
 class BiggestTest1(unittest.TestCase):
   def test(self):

@@ -2,7 +2,7 @@ import os
 import sys
 import unittest
 
-from solutions.dictionaries.how_many import how_many
+from solutions.how_many import how_many
 
 class HowManyTest1(unittest.TestCase):
   def test(self):
