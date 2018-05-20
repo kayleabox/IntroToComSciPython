@@ -196,7 +196,10 @@ def calculateHandlen(hand):
     hand: dictionary (string-> int)
     returns: integer
     """
-    return len(hand)
+    number_in_hand = 0
+    for key in hand: 
+        number_in_hand += hand[key]
+    return number_in_hand
 
 
 def playHand(hand, wordList, n):
@@ -223,33 +226,35 @@ def playHand(hand, wordList, n):
     """
     # BEGIN PSEUDOCODE <-- Remove this comment when you code this function; do your coding within the pseudocode (leaving those comments in-place!)
     # Keep track of the total score
-    
+    total_score = 0
     # As long as there are still letters left in the hand:
-    
+    while sum(hand.values()) > 0: 
         # Display the hand
-        
+        displayHand(hand)
         # Ask user for input
-        
+        user_word = input('Please enter a word or "." to indicate that you are finished: ')
         # If the input is a single period:
-        
+        if user_word == '.':
             # End the game (break out of the loop)
-
+            break
             
         # Otherwise (the input is not a single period):
-        
+        else:
             # If the word is not valid:
-            
+            if not isValidWord(user_word, hand, wordList):
                 # Reject invalid word (print a message followed by a blank line)
-
+                print('invalid word \n')
             # Otherwise (the word is valid):
-
+            else:
                 # Tell the user how many points the word earned, and the updated total score, in one line followed by a blank line
-                
+                score = getWordScore(user_word, n)
+                total_score += score
+                print('" ' + user_word + ' " earned ' + str(score) + ' points for that word! Your new score is ' + str(total_score))
                 # Update the hand 
-                
+                hand = updateHand(hand, user_word)
 
     # Game is over (user entered a '.' or ran out of letters), so tell user the total score
-
+    print('Ran out of letters. Total: ' + str(total_score))
 
 #
 # Problem #5: Playing a game
@@ -264,12 +269,31 @@ def playGame(wordList):
       * If the user inputs 'r', let the user play the last hand again.
       * If the user inputs 'e', exit the game.
       * If the user inputs anything else, tell them their input was invalid.
- 
+
     2) When done playing the hand, repeat from step 1    
     """
-    # TO DO ... <-- Remove this comment when you code this function
-    print("playGame not yet implemented.") # <-- Remove this line when you code the function
-   
+    hand = {}
+    playing = 'n'
+    while playing != 'e':
+        playing = input('for a new game enter "n", to replay the last game enter "r"' + 
+        'and to exit enter "e".')
+        if playing == 'n':
+            hand = dealHand(HAND_SIZE)
+            playHand(hand, wordList, HAND_SIZE)
+        elif playing == 'r':
+            if hand != {}:
+                playHand(hand, wordList, HAND_SIZE)
+            else: 
+                print('you have not played yet. please choose another option')
+                playing = input('for a new game enter "n", to replay the last game enter "r"' + 
+                ' and to exit enter "e"')
+        elif playing == 'e':
+            return
+        else: 
+            print('invalid input')
+
+
+         
 
 
 
