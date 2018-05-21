@@ -1,7 +1,11 @@
 import time 
 
 from load_words import load_words
-from ps4a import *
+from single_player import *
+#When running tests I have to add ProblemSet4 dir to the path or esle it errors
+#Need to figure out why
+#from ProblemSet4.load_words import load_words
+#from ProblemSet4.single_player import *
 
 def play_computer_hand(hand, word_list, HAND_SIZE):
     total_score = 0
@@ -11,15 +15,11 @@ def play_computer_hand(hand, word_list, HAND_SIZE):
         if computer_word == '':
             break
         else:
-            if not is_valid_word(computer_word, hand, word_list):
-                print('invalid word \n')
-            else:
-                score = get_word_score(computer_word, HAND_SIZE)
-                total_score += score
-                print('" ' + computer_word + ' " earned ' + str(score) + ' points for that word! Your new score is ' + str(total_score)) 
-                hand = update_hand(hand, computer_word)
+            hand, total_score = calculate_round(computer_word, hand, total_score, HAND_SIZE)
 
-    print('Ran out of letters. Total: ' + str(total_score))
+    if sum(hand.values()) <= 0:
+        print('Ran out of letters!')
+    print('Total: ' + str(total_score))
 
 def get_computer_word(hand, word_list, n):
     computer_word = ''
@@ -32,6 +32,11 @@ def get_computer_word(hand, word_list, n):
                 high_score = score
     return computer_word
 
+def calculate_round(word, hand, total_score, n):
+    score = get_word_score(word, n)
+    total_score += score
+    print('" ' + word + ' " earned ' + str(score) + ' points for that word! Your new score is ' + str(total_score)) 
+    return update_hand(hand, word), total_score
 
 def play_game(word_list):
     hand = {}

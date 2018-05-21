@@ -3,6 +3,9 @@ import random
 import string
 
 from load_words import load_words
+#When running tests I have to add ProblemSet4 dir to the path or esle it errors
+#Need to figure out why
+#from ProblemSet4.load_words import load_words
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
@@ -12,20 +15,6 @@ SCRABBLE_LETTER_VALUES = {
     'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
 }
 
-def get_frequency_dict(sequence):
-    """
-    Returns a dictionary where the keys are elements of the sequence
-    and the values are integer counts, for the number of times that
-    an element is repeated in the sequence.
-
-    sequence: string or list
-    return: dictionary
-    """
-    freq = {}
-    for x in sequence:
-        freq[x] = freq.get(x,0) + 1
-    return freq
-	
 def get_word_score(word, n):
     """
     Returns the score for a word. Assumes the word is a valid word.
@@ -53,18 +42,12 @@ def display_hand(hand):
     """
     Displays the letters currently in the hand.
 
-    For example:
-    >>> display_hand({'a':1, 'x':2, 'l':3, 'e':1})
-    Should print out something like:
-       a x x l l l e
-    The order of the letters is unimportant.
-
     hand: dictionary (string -> int)
     """
     for letter in hand.keys():
         for j in range(hand[letter]):
-             print(letter,end=" ")       # print all on the same line
-    print()                             # print an empty line
+             print(letter,end=" ")
+    print()
 
 def deal_hand(n):
     """
@@ -82,18 +65,15 @@ def deal_hand(n):
     num_vowels = n // 3
     
     for i in range(num_vowels):
-        x = VOWELS[random.randrange(0,len(VOWELS))]
-        hand[x] = hand.get(x, 0) + 1
+        vowel = VOWELS[random.randrange(0,len(VOWELS))]
+        hand[vowel] = hand.get(vowel, 0) + 1
         
     for i in range(num_vowels, n):    
-        x = CONSONANTS[random.randrange(0,len(CONSONANTS))]
-        hand[x] = hand.get(x, 0) + 1
+        consonant = CONSONANTS[random.randrange(0,len(CONSONANTS))]
+        hand[consonant] = hand.get(consonant, 0) + 1
         
     return hand
 
-#
-# Problem #2: Update a hand by removing letters
-#
 def update_hand(hand, word):
     """
     Assumes that 'hand' has all the letters in word.
@@ -128,19 +108,20 @@ def is_valid_word(word, hand, word_list):
     """
     if word == '': 
         return False
+    letters_in_word = create_letter_dict(word)
+    for key in letters_in_word:
+        if key not in hand or hand[key] < letters_in_word[key]: 
+            return False
+    return word in word_list
+
+def create_letter_dict(word):
     letters_in_word = {}
     for letter in word:
         if letter not in letters_in_word: 
             letters_in_word[letter] = 1
         else: 
             letters_in_word[letter] += 1
-    for key in letters_in_word:
-        if key not in hand or hand[key] < letters_in_word[key]: 
-            return False
-    if word in word_list:
-        return True
-    else: 
-        return False
+    return letters_in_word
 
 def calculate_hand_len(hand):
     """ 
@@ -187,12 +168,17 @@ def play_hand(hand, word_list, n):
             if not is_valid_word(user_word, hand, word_list):
                 print('invalid word \n')
             else:
-                score = get_word_score(user_word, n)
-                total_score += score
-                print('" ' + user_word + ' " earned ' + str(score) + ' points for that word! Your new score is ' + str(total_score))
-                hand = update_hand(hand, user_word)
+                hand, total_score = calculate_round(user_word, hand, total_score, n)
+                
+    if sum(hand.values()) <= 0:
+        print('Ran out of letters!')
+    print('Total: ' + str(total_score))
 
-    print('Ran out of letters. Total: ' + str(total_score))
+def calculate_round(word, hand, total_score, n):
+    score = get_word_score(word, n)
+    total_score += score
+    print('" ' + word + ' " earned ' + str(score) + ' points for that word! Your new score is ' + str(total_score))
+    return update_hand(hand, word), total_score
 
 def play_game(word_list):
     """
