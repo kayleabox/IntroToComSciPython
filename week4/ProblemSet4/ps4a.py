@@ -276,7 +276,7 @@ def playGame(wordList):
     playing = 'n'
     while playing != 'e':
         playing = input('for a new game enter "n", to replay the last game enter "r"' + 
-        'and to exit enter "e".')
+        ' and to exit enter "e"')
         if playing == 'n':
             hand = dealHand(HAND_SIZE)
             playHand(hand, wordList, HAND_SIZE)
@@ -284,9 +284,7 @@ def playGame(wordList):
             if hand != {}:
                 playHand(hand, wordList, HAND_SIZE)
             else: 
-                print('you have not played yet. please choose another option')
-                playing = input('for a new game enter "n", to replay the last game enter "r"' + 
-                ' and to exit enter "e"')
+                print('You have not played a hand yet. Please play a new hand first!')
         elif playing == 'e':
             return
         else: 
@@ -294,9 +292,6 @@ def playGame(wordList):
 
 
          
-
-
-
 #
 # Build data structures used for entire session and play game
 #
