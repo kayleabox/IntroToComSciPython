@@ -1,4 +1,3 @@
-# The 6.00 Word Game
 import os
 import string
 

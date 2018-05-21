@@ -4,8 +4,10 @@ import unittest
 
 from ProblemSet4.load_words import load_words
 from ProblemSet4.ps4a import getWordScore
-from ProblemSet4.ps4a import updateHand
 from ProblemSet4.ps4a import isValidWord
+from ProblemSet4.ps4a import updateHand
+from ProblemSet4.ps4b import play_computer_hand
+from ProblemSet4.ps4b import compPlayHand
 
 
 class GetWordScore1(unittest.TestCase):
@@ -81,3 +83,19 @@ class WordIsValid5(unittest.TestCase):
     hand = {'e':1, 'v':2, 'n':1, 'i':1, 'l':2}
     word = 'evvni'
     self.assertEqual(isValidWord(word, hand, word_list), False)
+    
+    play_computer_hand({'a': 2, 'm': 1}, word_list, 3)
+    compPlayHand({'a': 2, 'm': 1}, word_list, 3)
+    play_computer_hand({'a': 2, 'm': 1, 't': 1, 'u': 1, 'r': 1, 'e': 1}, word_list, 7)
+    compPlayHand({'a': 2, 'm': 1, 't': 1, 'u': 1, 'r': 1, 'e': 1}, word_list, 7)
+    play_computer_hand({'a': 1, 'i': 1, 'y': 1, 'k': 1, 's': 1, 'x': 2}, word_list, 7)
+    #" axis " score 44
+    play_computer_hand({'o': 1, 'a': 1, 'g': 1, 'q': 1, 'b': 1, 'w': 1, 'j': 1}, word_list, 7)
+    compPlayHand({'o': 1, 'a': 1, 'g': 1, 'q': 1, 'b': 1, 'w': 1, 'j': 1}, word_list, 7)
+    #" jaw " score 39, " bog " score 18 total 57
+    play_computer_hand({'u': 1, 'a': 1, 'm': 1, 'q': 1, 'k': 1, 'd': 1, 'j': 1}, word_list, 7)
+    #" dumka " score 60
+    play_computer_hand({'a': 1, 'u': 1, 'r': 1, 'x': 1, 'm': 1, 'b': 1, 'y': 1}, word_list, 7)
+    #" braxy " score 85 " mu " score 8 total 93
+    play_computer_hand({'o': 1, 'a': 1, 'h': 1, 'q': 1, 'b': 1, 'w': 1, 'j': 1}, word_list, 7)
+    compPlayHand({'o': 1, 'a': 1, 'h': 1, 'q': 1, 'b': 1, 'w': 1, 'j': 1}, word_list, 7)
