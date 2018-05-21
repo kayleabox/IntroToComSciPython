@@ -95,7 +95,37 @@ def compPlayHand(hand, wordList, n):
     # Game is over (user entered a '.' or ran out of letters), so tell user the total score
     print('Total score: ' + str(totalScore) + ' points.')
 
-    
+def computer_play_hand(hand, wordList, HAND_SIZE):
+    total_score = 0
+    while sum(hand.values()) > 0: 
+        displayHand(hand)
+        computer_word = get_computer_word(hand, wordList, HAND_SIZE)
+        if computer_word == '':
+            break
+        else:
+            if not isValidWord(computer_word, hand, wordList):
+                print('invalid word \n')
+            else:
+                score = getWordScore(computer_word, HAND_SIZE)
+                total_score += score
+                print('" ' + computer_word + ' " earned ' + str(score) + ' points for that word! Your new score is ' + str(total_score)) 
+                hand = updateHand(hand, computer_word)
+
+    # Game is over (user entered a '.' or ran out of letters), so tell user the total score
+    print('Ran out of letters. Total: ' + str(total_score))
+
+def get_computer_word(hand, wordList, n):
+    computer_word = ''
+    high_score = 0
+    for word in wordList: 
+        if isValidWord(word, hand, wordList):
+            score = getWordScore(word, n)
+            if score > high_score: 
+                computer_word = word
+                high_score = score
+    return computer_word
+
+
 #
 # Problem #6: Playing a game
 #
@@ -167,6 +197,12 @@ def prepare_game_settings(player_type, game_type, hand):
 #
 if __name__ == '__main__':
     wordList = loadWords()
+    computer_play_hand({'a': 2, 'm': 1}, wordList, 3)
+    computer_play_hand({'a': 2, 'm': 1, 't': 1, 'u': 1, 'r': 1, 'e': 1}, wordList, 7)
+    computer_play_hand({'a': 1, 'i': 1, 'y': 1, 'k': 1, 's': 1, 'x': 2}, wordList, 7)
+    #"axis" score 44
+    computer_play_hand({'o': 1, 'a': 1, 'g': 1, 'q': 1, 'b': 1, 'w': 1, 'j': 1}, wordList, 7)
+    #"jaw" score 39, "bog" score 18 total 57
     playGame(wordList)
 
 
