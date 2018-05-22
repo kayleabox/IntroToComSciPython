@@ -8,3 +8,7 @@ class Score():
     self.total_score += self.round_score
     print('" ' + word.word + ' " earned ' + str(self.round_score) 
     + ' points for that word! Your new score is ' + str(self.total_score))
+
+  def reset(self):
+    self.total_score = 0
+    self.round_score = 0

@@ -1,7 +1,5 @@
 from Hand import Hand
 from load_words import load_words
-#from players.HumanPlayer import HumanPlayer
-#from players.ComputerPlayer import ComputerPlayer
 
 class Game(): 
   def __init__(self, hand_size = 7):
@@ -21,19 +19,15 @@ class Game():
 
   def play_new_hand(self):
     self.hand = Hand(self.hand_size)
-    self.hand.deal_hand()
-    self.hand.play_hand()
+    self.hand.play_new_hand()
 
   def replay_hand(self):
-    if self.hand != None:
-      self.hand.play_hand()
-    else: 
-      print('You have not played a hand yet. Please play a new hand first!')
+    self.hand.replay_hand()
 
   def exit_game(self):
     return
 
-game = Game(int(input('how many letters in a hand')))
+game = Game(int(input('how many letters in a hand? ')))
 game.play_game()
 
 
