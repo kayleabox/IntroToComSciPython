@@ -35,9 +35,11 @@ class Word():
 
   def is_valid_word(self, hand):
     if self.word != '':
-      for letter in self.word:
-        if letter not in hand or hand[letter] < self.word.count(letter): 
-          return False
-
-      return self.word in self.word_list
+      if self.check_word_in_hand(hand) != False:
+        return self.word in self.word_list
     return False
+
+  def check_word_in_hand(self, hand):
+    for letter in self.word:
+      if letter not in hand or hand[letter] < self.word.count(letter): 
+        return False

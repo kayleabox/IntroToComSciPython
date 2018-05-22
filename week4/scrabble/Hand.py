@@ -64,7 +64,7 @@ class Hand():
     if not user_word.is_valid_word(self.hand):
       print('invalid word \n')
     else:
-      self.score.calculate_score(user_word, self.hand_size)
+      self.score.calculate_word_score(user_word, self.hand_size)
       self.update_hand(user_word)
 
   def display_total(self):
