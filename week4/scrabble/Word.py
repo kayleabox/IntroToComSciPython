@@ -12,7 +12,6 @@ WORD_LIST = load_words()
 
 class Word():
   def __init__(self, word = ''):
-    self.word_list = WORD_LIST
     self.word = word
     self.score = 0
   
@@ -36,7 +35,7 @@ class Word():
   def is_valid_word(self, hand):
     if self.word != '':
       if self.check_word_in_hand(hand) != False:
-        return self.word in self.word_list
+        return self.word in WORD_LIST
     return False
 
   def check_word_in_hand(self, hand):

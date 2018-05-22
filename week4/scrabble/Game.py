@@ -1,5 +1,4 @@
 from Hand import Hand
-from load_words import load_words
 
 class Game(): 
   def __init__(self):
