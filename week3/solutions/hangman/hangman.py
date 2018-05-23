@@ -93,7 +93,7 @@ def hangman(secret_word):
   is_playing = True
   guesses_left = 8
   letters_guessed = []
-  
+
   greeting(secret_word)
 
   while is_playing:
@@ -126,9 +126,6 @@ def end_game(guesses_left, secret_word):
     print('Sorry, you ran out of guesses. The word was ' + secret_word + '.')
     return False      
   return True
-
-def process_game_play(secret_word, guess, letters_guessed, guesses_left, is_playing):
- return
 
 def process_successful_guess(letters_guessed, is_playing, secret_word):
   show_successful_letter_message(secret_word, letters_guessed)
