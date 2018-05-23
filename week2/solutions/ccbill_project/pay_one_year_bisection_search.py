@@ -60,10 +60,9 @@ def get_fixed_rate(balance, monthly_interest, upper_bound, lower_bound):
     return monthly_payment
   elif remaining_balance < -0.01:
     upper_bound = monthly_payment
-    monthly_payment = round(lower_bound + (upper_bound - lower_bound)/2, 4)
   elif remaining_balance > 0: 
     lower_bound = monthly_payment
-    monthly_payment = round(lower_bound + (upper_bound - lower_bound)/2, 4)
+  monthly_payment = round(lower_bound + (upper_bound - lower_bound)/2, 4)
   return get_fixed_rate(balance, monthly_interest, upper_bound, lower_bound)
 
 def check_monthly_payment(balance, monthly_interest, monthly_payment):

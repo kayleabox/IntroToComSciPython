@@ -11,16 +11,16 @@ from solutions.ccbill_project.pay_one_year_bisection_search import pay_one_year_
 '''
 Test Case 1:
   balance = 42
-	annualInterestRate = 0.2 
-  monthlyPaymentRate = 0.04
+	annual_interest_rate = 0.2 
+  monthly_payment_rate = 0.04
 	      
 Result Your Code Should Generate Below:
 	Remaining balance: 31.38
 
 Test Case 2:
 	balance = 484
-  annualInterestRate = 0.2
-	monthlyPaymentRate = 0.04
+  annual_interest_rate = 0.2
+	monthly_payment_rate = 0.04
 	      
 Result Your Code Should Generate Below:
   Remaining balance: 361.61
@@ -75,14 +75,14 @@ class CalPayOneYearTest(unittest.TestCase):
 '''
 Test Case 1:
 	balance = 320000
-	annualInterestRate = 0.2
+	annual_interest_rate = 0.2
 
 Result Your Code Should Generate:
 	Lowest Payment: 29157.09
 
 Test Case 2:
 	balance = 999999
-	annualInterestRate = 0.18
+	annual_interest_rate = 0.18
 	      
 Result Your Code Should Generate:
 	Lowest Payment: 90325.03  

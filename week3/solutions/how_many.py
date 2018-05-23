@@ -4,10 +4,7 @@ def how_many(dictionary):
 
   returns: int, how many values are in the dictionary.
   '''
-  how_many = 0
-  for key in dictionary:
-      how_many += len(dictionary[key])
-  return how_many
+  return sum([len(dictionary[key]) for key in dictionary])
 
 animals = { 'a': ['aardvark'], 'b': ['baboon'], 'c': ['coati'], 'd': ['donkey', 'dog', 'dingo'] }
 print(animals)

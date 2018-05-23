@@ -11,10 +11,14 @@ def biggest(dictionary):
       biggest = key
   return biggest
 
+def biggest2(dictionary):
+  return max({key:len(value) for key,value in dictionary.items()}.keys())
+
 animals = { 'a': ['aardvark'], 'b': ['baboon'], 'c': ['coati'], 'd': ['donkey', 'dog', 'dingo'] }
 print(animals)
-print('the biggest list in the dicitonary is: ' + biggest(animals))
-    
+print('the biggest list in the dicitonary is: ' + str(biggest(animals)))
+print('the biggest list in the dicitonary is: ' + str(biggest2(animals)))    
+
 dictionary = {}
 print(dictionary)
 print('the biggest list in the dicitonary is: ' + str(biggest(dictionary)))

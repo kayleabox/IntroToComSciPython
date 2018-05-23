@@ -90,33 +90,67 @@ def hangman(secret_word):
 
   Follows the other limitations detailed in the problem write-up.
   '''
-  print('Welcome to the game, Hangman!')
-  print('I am thinking of a word that is ' + str(len(secret_word)) + ' letters long.')
   is_playing = True
   guesses_left = 8
   letters_guessed = []
+  
+  greeting(secret_word)
 
   while is_playing:
-    print('-----------')
-    print('You have ' + str(guesses_left) + ' guesses left.')
-    print('Available letters: ' +  get_available_letters(letters_guessed))
+    display_game_info(guesses_left, letters_guessed)
     guess = input('Please guess a letter: ').lower()
-    if guess in secret_word and guess not in letters_guessed:
-      letters_guessed.append(guess)
-      print('Good guess: ' + get_guessed_word(secret_word, letters_guessed))
-      if is_word_guessed(secret_word, letters_guessed):
-        print('-----------')
-        print('Congratulations, you won!')
-        is_playing = False
-    elif guess in letters_guessed:
-      print('Oops! You\'ve already guessed that letter: ' + get_guessed_word(secret_word, letters_guessed))
+    
+    if guess in letters_guessed:
+      show_repeat_letter_message(secret_word, letters_guessed)
     else:
-      guesses_left -= 1
       letters_guessed.append(guess)
-      print('Oops! That letter is not in my word: ' + get_guessed_word(secret_word, letters_guessed))
+      if guess in secret_word:
+        is_playing = process_successful_guess(letters_guessed, is_playing, secret_word)
+      elif guess not in secret_word:
+        guesses_left = process_failed_guess(guesses_left, letters_guessed, secret_word)
 
-    if guesses_left <= 0: 
-      print('-----------')
-      print('Sorry, you ran out of guesses. The word was ' + secret_word + '.')
-      is_playing = False      
+    is_playing = end_game(guesses_left, secret_word)
 
+def greeting(secret_word):
+  print('Welcome to the game, Hangman!')
+  print('I am thinking of a word that is ' + str(len(secret_word)) + ' letters long.')
+
+def display_game_info(guesses_left, letters_guessed):
+  print('-----------')
+  print('You have ' + str(guesses_left) + ' guesses left.')
+  print('Available letters: ' +  get_available_letters(letters_guessed))
+
+def end_game(guesses_left, secret_word):
+  if guesses_left <= 0: 
+    print('-----------')
+    print('Sorry, you ran out of guesses. The word was ' + secret_word + '.')
+    return False      
+  return True
+
+def process_game_play(secret_word, guess, letters_guessed, guesses_left, is_playing):
+ return
+
+def process_successful_guess(letters_guessed, is_playing, secret_word):
+  show_successful_letter_message(secret_word, letters_guessed)
+  if is_word_guessed(secret_word, letters_guessed):
+    is_playing = process_winning_game()
+  return is_playing
+
+def process_winning_game():
+  print('-----------')
+  print('Congratulations, you won!')
+  return False
+
+def process_failed_guess(guesses_left, letters_guessed, secret_word):
+  guesses_left -= 1
+  show_failed_letter_message(secret_word, letters_guessed)  
+  return guesses_left
+
+def show_successful_letter_message(secret_word, letters_guessed):
+  print('Good guess: ' + get_guessed_word(secret_word, letters_guessed))
+
+def show_failed_letter_message(secret_word, letters_guessed):
+  print('Oops! That letter is not in my word: ' + get_guessed_word(secret_word, letters_guessed))
+
+def show_repeat_letter_message(secret_word, letters_guessed):
+  print('Oops! You\'ve already guessed that letter: ' + get_guessed_word(secret_word, letters_guessed))
