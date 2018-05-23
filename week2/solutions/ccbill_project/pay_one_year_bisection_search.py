@@ -45,7 +45,7 @@ large inputs, and notice how fast it is. Produce the same return value as you di
 Note that if you do not use bisection search, your code will not run - your code only has 30 seconds to run on our servers.
 '''
 
-def pay_one_year_bi(balance, annual_interest_rate):
+def pay_one_year_bisection_search(balance, annual_interest_rate):
   monthly_interest = annual_interest_rate/12
   upper_bound = (balance * (1 + monthly_interest)**12) /12.0
   lower_bound = balance / 12
@@ -54,26 +54,25 @@ def pay_one_year_bi(balance, annual_interest_rate):
 
 def get_fixed_rate(balance, monthly_interest, upper_bound, lower_bound):
   monthly_payment = round(lower_bound + (upper_bound - lower_bound)/2, 4)
-  remain_balance = check_monthly_payment(balance, monthly_interest, monthly_payment)
+  remaining_balance = check_monthly_payment(balance, monthly_interest, monthly_payment)
 
-  if(remain_balance <= 0 and remain_balance >= -0.01):
+  if -0.01 <= remaining_balance and remaining_balance <= 0:
     return monthly_payment
-  elif remain_balance < -0.01:
+  elif remaining_balance < -0.01:
     upper_bound = monthly_payment
-    monthly_payment = round(lower_bound + (upper_bound - lower_bound)/2, 4)
-  elif remain_balance > 0: 
+  elif remaining_balance > 0: 
     lower_bound = monthly_payment
-    monthly_payment = round(lower_bound + (upper_bound - lower_bound)/2, 4)
+  monthly_payment = round(lower_bound + (upper_bound - lower_bound)/2, 4)
   return get_fixed_rate(balance, monthly_interest, upper_bound, lower_bound)
 
 def check_monthly_payment(balance, monthly_interest, monthly_payment):
-  remain_balance = balance
+  remaining_balance = balance
 
   for month in range(12):
-    unpaid = remain_balance - monthly_payment 
-    remain_balance = unpaid + (monthly_interest * unpaid)
-  return remain_balance
+    unpaid = remaining_balance - monthly_payment 
+    remaining_balance = unpaid + (monthly_interest * unpaid)
+  return remaining_balance
 
-print('pay_one_year_bi:')
-pay_one_year_bi(320000, 0.2)
+print('Calculate Paying Bill in One Year With Bisection Search:')
+pay_one_year_bisection_search(320000, 0.2)
 print('\n')
