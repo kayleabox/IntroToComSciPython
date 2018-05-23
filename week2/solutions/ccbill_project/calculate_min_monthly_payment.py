@@ -14,17 +14,17 @@ Monthly unpaid balance = (Previous balance) - (Minimum monthly payment)
 Updated balance each month = (Monthly unpaid balance) + (Monthly interest
 rate x Monthly unpaid balance)
 '''
-def cal_min_pay(balance, annual_interest_rate, monthly_payment_rate):
-  monthly_interest = annual_interest_rate/12
-  remain_balance =  balance
+def calculate_min_monthly_payment(balance, annual_interest_rate, monthly_payment_rate):
+  monthly_interest = annual_interest_rate / 12
+  remaining_balance =  balance
 
   for month in range(12):
-    minimun_payment = monthly_payment_rate * remain_balance
-    unpaid = remain_balance - minimun_payment 
-    remain_balance = unpaid + (monthly_interest * unpaid)
+    minimun_payment = monthly_payment_rate * remaining_balance
+    unpaid = remaining_balance - minimun_payment 
+    remaining_balance = unpaid + (monthly_interest * unpaid)
     
-  print('Remaining balance: ' + str(round(remain_balance, 2)))
+  print('Remaining balance: ' + str(round(remaining_balance, 2)))
 
-print('cal_min_pay:')
-cal_min_pay(484, 0.2, 0.04)
+print('Calculate Minimum Monthly Payment:')
+calculate_min_monthly_payment(484, 0.2, 0.04)
 print('\n')

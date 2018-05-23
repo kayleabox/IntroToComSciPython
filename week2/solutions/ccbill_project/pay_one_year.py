@@ -16,13 +16,13 @@ def pay_one_year(balance, annual_interest_rate):
   print('Lowest Payment: ' + str(round(lowest_pay, 2)))
 
 def get_fixed_rate(monthly_payment, balance, monthly_interest):
-  remain_balance = balance
+  remaining_balance = balance
 
   for month in range(12):
-    unpaid = remain_balance - monthly_payment 
-    remain_balance = unpaid + (monthly_interest * unpaid)
+    unpaid = remaining_balance - monthly_payment 
+    remaining_balance = unpaid + (monthly_interest * unpaid)
     
-  if(remain_balance <= 0):
+  if remaining_balance <= 0:
     return monthly_payment
   return get_fixed_rate(monthly_payment + 10, balance, monthly_interest)
 
