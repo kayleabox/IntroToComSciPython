@@ -15,24 +15,24 @@ class Word():
     self.word = word
     self.score = 0
   
-  def get_word(self):
+  def get(self):
     return self.word
 
-  def get_word_score(self, hand_size):
-    self.calculate_base_score()
-    self.add_bonus(hand_size)
+  def get_score(self):
     return self.score
 
-  def calculate_base_score(self):
-    for letter in self.word:
-      self.score += SCRABBLE_LETTER_VALUES[letter]    
-    self.score *= len(self.word)
-    
-  def add_bonus(self, hand_size):
-    if len(self.word) == hand_size: 
-      self.score += 50
+  def calculate_score(self, hand_size):
+    return self.add_bonus(self.calculate_base_score(), hand_size)
 
-  def is_valid_word(self, hand):
+  def calculate_base_score(self):
+    return len(self.word) * sum(SCRABBLE_LETTER_VALUES[letter] for letter in self.word)
+    
+  def add_bonus(self, score, hand_size):
+    if len(self.word) == hand_size: 
+      return score + 50
+    return score
+
+  def is_valid(self, hand):
     if self.word != '':
       if self.check_word_in_hand(hand) != False:
         return self.word in WORD_LIST

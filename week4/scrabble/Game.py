@@ -36,7 +36,7 @@ class Game():
       return self.get_hand_size()
 
 game = Game()
-game.play_game()
+#game.play_game()
 
 
   
