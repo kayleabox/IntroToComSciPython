@@ -13,13 +13,9 @@ WORD_LIST = load_words()
 class Word():
   def __init__(self, word = ''):
     self.word = word
-    self.score = 0
-  
+
   def get(self):
     return self.word
-
-  def get_score(self):
-    return self.score
 
   def calculate_score(self, hand_size):
     return self.add_bonus(self.calculate_base_score(), hand_size)
@@ -34,11 +30,11 @@ class Word():
 
   def is_valid(self, hand):
     if self.word != '':
-      if self.check_word_in_hand(hand) != False:
+      if self.check_hand(hand) != False:
         return self.word in WORD_LIST
     return False
 
-  def check_word_in_hand(self, hand):
+  def check_hand(self, hand):
     for letter in self.word:
       if letter not in hand or hand[letter] < self.word.count(letter): 
         return False
