@@ -7,6 +7,8 @@ import unittest.mock
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
 from Hand import Hand
+from Score import Score
+from Word import Word
 
 class HandTest(unittest.TestCase):
   def test(self):
@@ -83,22 +85,29 @@ class HandDealTest5(unittest.TestCase):
 
 
 # Hand.display()
-class HandDisplayTest(unittest.TestCase):
+class HandDisplayTest1(unittest.TestCase):
   @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
   def assert_stdout(self, expected_output, mock_stdout):
     hand = Hand()
+    hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
+    hand.updated_hand = {'e':1, 'v':2, 'n':1, 'i':1, 'l':2}
     hand.display()
     self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
   def test(self):
+    self.assert_stdout('e v v n i l l ')
+
+class HandDisplayTest2(unittest.TestCase):
+  @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+  def assert_stdout(self, expected_output, mock_stdout):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
-    hand.updated_hand = {'e':1, 'v':2, 'n':1, 'i':1, 'l':2}
-    #hand.display()
-    #self.assert_stdout('e v v n i l l ')
-    hand.updated_hand = {'e':1, 'v':2, 'y':1, 'i':1, 'o':2}
-    #self.assert_stdout('e v v y i o o')
+    hand.updated_hand = {'e':4, 'v':2, 'y':1, 'i':1, 'o':3}
+    hand.display()
+    self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
+  def test(self):
+    self.assert_stdout('e e e e v v y i o o o ')
 
 # Hand.get_vowels()
 VOWEL_SET = set(['a', 'e', 'i', 'o', 'u'])
@@ -230,7 +239,20 @@ class CalculateHandLenTest4(unittest.TestCase):
 
 
 # Hand.play()
+# need to figure how to mock the game play
+class HandPlayTest1(unittest.TestCase):
+  @unittest.mock.patch('Hand.Hand.set_userword')
+  #@unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+  def mock_set_word_function(self, mock_set_word):
+    hand = Hand()
+    hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
+    mock_set_word.return_value = Word('.')
+    print('mock_set_word')
+    hand.play()
+    self.assertTrue(mock_set_word.called)
 
+  def test(self):
+    self.mock_set_word_function()
 
 
 # Hand.update()
@@ -257,20 +279,127 @@ class HandUpdateTest3(unittest.TestCase):
 
   
 # Hand.process_userword()
+class HandProcessWordTest1(unittest.TestCase):
+  def test(self):
+    hand = Hand()
+    self.assertEqual(hand.process_userword(Word('.')), False)
 
+class HandProcessWordTest2(unittest.TestCase):
+  @unittest.mock.patch('Hand.Hand.evaluate_word')
+  def mock_process_word_function(self, mock_evaluate_word):
+    hand = Hand()
+    hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
+    hand.updated_hand = {'e':1, 'v':1, 'n':2, 'i':2, 'l':1}
+    hand.process_userword(Word('evil'))
+    self.assertTrue(mock_evaluate_word.called)
+
+  def test(self):
+    self.mock_process_word_function()
 
 
 # Hand.evaluate_word()
+class HandEvaluateWordTest1(unittest.TestCase):
+  @unittest.mock.patch('Score.Score.calculate_word_score')
+  @unittest.mock.patch('Hand.Hand.update')
+  def mock_evaluate_word_function(self, mock_calculate_score, mock_update_hand):
+    hand = Hand()
+    hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
+    hand.updated_hand = {'e':1, 'v':1, 'n':2, 'i':2, 'l':1}
+    hand.evaluate_word(Word('evil'))
+    
+    self.assertTrue(mock_calculate_score.called)
+    self.assertTrue(mock_update_hand.called)
 
+  def test(self):
+    self.mock_evaluate_word_function()
 
+class HandEvaluateWordTest2(unittest.TestCase):
+  @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+  def assert_stdout(self, expected_output, mock_stdout):
+    hand = Hand()
+    hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
+    hand.updated_hand = {'e':1, 'v':1, 'n':2, 'i':2, 'l':1}
+    hand.evaluate_word(Word('evidfsd'))
+
+    self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
+
+  def test(self):
+    self.assert_stdout('invalid word ')
+    
 
 # Hand.display_total_score()
+class HandDisplayTotalScoreTest1(unittest.TestCase):
+  @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+  def assert_stdout(self, expected_output, mock_stdout):
+    hand = Hand()
+    hand.score.total_score = 20
+    hand.display_total_score()
+    self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
+  def test(self):
+    self.assert_stdout('Ran out of letters!\nTotal: 20')
 
+class HandDisplayTotalScoreTest2(unittest.TestCase):
+  @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+  def assert_stdout(self, expected_output, mock_stdout):
+    hand = Hand()
+    hand.score.total_score = 150
+    hand.display_total_score()
+    self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
+
+  def test(self):
+    self.assert_stdout('Ran out of letters!\nTotal: 150')
+
+class HandDisplayTotalScoreTest3(unittest.TestCase):
+  @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+  def assert_stdout(self, expected_output, mock_stdout):
+    hand = Hand()
+    hand.updated_hand = {'f': 1, 'z': 2}
+    hand.score.total_score = 10
+    hand.display_total_score()
+    self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
+
+  def test(self):
+    self.assert_stdout('Total: 10')
 
 # Hand.replay()
+class HandReplayTest1(unittest.TestCase):
+  @unittest.mock.patch('Hand.Hand.play')
+  @unittest.mock.patch('Score.Score.reset')
+  def mock_replay_function(self, mock_play, mock_score_reset):
+    hand = Hand()
+    hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
+    hand.replay()
+    self.assertTrue(mock_score_reset.called)
+    self.assertTrue(mock_play.called)
 
+  def test(self):
+    self.mock_replay_function()
+
+class HandReplayTest2(unittest.TestCase):
+  @unittest.mock.patch('Hand.Hand.play')
+  @unittest.mock.patch('Score.Score.reset')
+  def mock_replay_function(self, mock_play, mock_score_reset):
+    hand = Hand()
+    hand.replay()
+    self.assertFalse(mock_score_reset.called)
+    self.assertFalse(mock_play.called)
+
+  def test(self):
+    self.mock_replay_function()
 
 
 # Hand.play_new()
+class HandPlayNewTest1(unittest.TestCase):
+  @unittest.mock.patch('Hand.Hand.deal')
+  @unittest.mock.patch('Hand.Hand.play')
+  def mock_replay_function(self, mock_deal, mock_play):
+    hand = Hand()
+    hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
+    hand.play()
+    self.assertTrue(mock_deal.called)
+    self.assertTrue(mock_play.called)
+
+
+
 

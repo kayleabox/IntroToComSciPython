@@ -52,13 +52,16 @@ class Hand():
     self.updated_hand = self.hand.copy()
     while sum(self.updated_hand.values()) > 0: 
       self.display()
-      if self.process_userword() == False:
+      user_word = self.set_userword()
+      if self.process_userword(user_word) == False:
         break
                   
     self.display_total_score()
 
-  def process_userword(self):
-      user_word = Word(input('Please enter a word or "." to indicate that you are finished: '))
+  def set_userword(self):
+      return Word(input('Please enter a word or "." to indicate that you are finished: '))
+
+  def process_userword(self, user_word):
       if user_word.get() == '.':
         return False     
       else:
@@ -77,7 +80,7 @@ class Hand():
     print('Total: ' + str(self.score.total_score))
 
   def replay(self):
-    if self.hand != None:
+    if self.hand != {}:
       self.score.reset()
       self.play()
     else: 
