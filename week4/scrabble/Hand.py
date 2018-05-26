@@ -14,13 +14,20 @@ class Hand():
     self.num_vowels = hand_size // 3
     self.score = Score()
 
-  def display_hand(self):
+  def get(self):
+    return self.hand
+
+  def set(self, hand):
+    self.hand = hand
+
+  def display(self):
+    hand = ''
     for letter in self.updated_hand.keys():
       for j in range(self.updated_hand[letter]):
-        print(letter,end=" ")
-    print()
+        hand += letter + ' '
+    print(hand)
 
-  def deal_hand(self):      
+  def deal(self):      
     self.get_vowels()
     self.get_consonants()
 
@@ -34,51 +41,48 @@ class Hand():
       consonant = CONSONANTS[random.randrange(0,len(CONSONANTS))]
       self.hand[consonant] = self.hand.get(consonant, 0) + 1
 
-  def update_hand(self, word):
-    for letter in word.word:
+  def update(self, word):
+    for letter in word:
       self.updated_hand[letter] -= 1
 
-  def calculate_hand_len():
-    number_in_hand = 0
-    for key in self.hand: 
-      number_in_hand += hand[key]
-    return number_in_hand
+  def calculate_len(self):
+    return sum(self.get().values())
 
-  def play_hand(self):
+  def play(self):
     self.updated_hand = self.hand.copy()
     while sum(self.updated_hand.values()) > 0: 
-      self.display_hand()
+      self.display()
       if self.process_userword() == False:
         break
                   
-    self.display_total()
+    self.display_total_score()
 
   def process_userword(self):
       user_word = Word(input('Please enter a word or "." to indicate that you are finished: '))
-      if user_word.get_word() == '.':
+      if user_word.get() == '.':
         return False     
       else:
         self.evaluate_word(user_word)
 
   def evaluate_word(self, user_word):
-    if not user_word.is_valid_word(self.hand):
+    if not user_word.is_valid(self.hand):
       print('invalid word \n')
     else:
       self.score.calculate_word_score(user_word, self.hand_size)
-      self.update_hand(user_word)
+      self.update(user_word.get())
 
-  def display_total(self):
+  def display_total_score(self):
     if sum(self.updated_hand.values()) <= 0:
       print('Ran out of letters!')
     print('Total: ' + str(self.score.total_score))
 
-  def replay_hand(self):
+  def replay(self):
     if self.hand != None:
       self.score.reset()
-      self.play_hand()
+      self.play()
     else: 
       print('You have not played a hand yet. Please play a new hand first!')
 
-  def play_new_hand(self):
-    self.deal_hand()
-    self.play_hand()
+  def play_new(self):
+    self.deal()
+    self.play()

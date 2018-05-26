@@ -21,10 +21,10 @@ class Game():
 
   def play_new_hand(self):
     self.hand = Hand(self.get_hand_size())
-    self.hand.play_new_hand()
+    self.hand.play_new()
 
   def replay_hand(self):
-    self.hand.replay_hand()
+    self.hand.replay()
 
   def exit_game(self):
     return

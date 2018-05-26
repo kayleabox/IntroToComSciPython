@@ -4,7 +4,7 @@ class Score():
     self.round_score = 0
 
   def calculate_word_score(self, word, hand_size):
-    self.round_score = word.get_word_score(hand_size)
+    self.round_score = word.calculate_score(hand_size)
     self.total_score += self.round_score
     self.print_word_score(word)
 
