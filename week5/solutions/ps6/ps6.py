@@ -105,16 +105,12 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        lower_alphabet = string.ascii_lowercase
-        shifted_dict = {} 
-        for letter in lower_alphabet:
-            if lower_alphabet.index(letter) + shift < 26:
-                shifted_dict[letter] = lower_alphabet[lower_alphabet.index(letter) + shift]
-                shifted_dict[letter.upper()] = lower_alphabet[lower_alphabet.index(letter) + shift].upper()
-            else:
-                shifted_dict[letter] = lower_alphabet[(lower_alphabet.index(letter) + shift) - 26]
-                shifted_dict[letter.upper()] = lower_alphabet[(lower_alphabet.index(letter) + shift) - 26].upper()
-        return shifted_dict
+        alphabet = string.ascii_lowercase
+        return dict(list(self.map_alphabet(alphabet, shift).items()) 
+        + list(self.map_alphabet(alphabet.upper(), shift).items()))
+
+    def map_alphabet(self, alphabet, shift):
+        return {l: alphabet[(alphabet.index(l) + shift) - 26] for l in alphabet}
 
     def apply_shift(self, shift):
         '''
@@ -130,15 +126,7 @@ class Message(object):
         '''
         if 0 <= shift <= 26:
             cipher_dict = self.build_shift_dict(shift)
-            encrypted_message = ''
-            for letter in self.message_text:
-                if letter.isalpha():
-                    encrypted_message += cipher_dict[letter]
-                else: 
-                    encrypted_message += letter
-            return encrypted_message
-        return
-
+            return ''.join([cipher_dict[letter] if letter.isalpha() else letter for letter in self.message_text])
 
 message = Message('hello')
 print(message.build_shift_dict(6))
