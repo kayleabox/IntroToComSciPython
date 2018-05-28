@@ -21,25 +21,30 @@ class Hand():
     self.hand = hand
 
   def display(self):
-    hand = ''
+    print(self.get_hand_string())
+
+  def get_hand_string(self):
+    '''hand = ''
     for letter in self.updated_hand.keys():
       for j in range(self.updated_hand[letter]):
         hand += letter + ' '
-    print(hand)
+    return hand'''
+    return ' '.join([letter for letter in self.updated_hand.keys() for j in range(self.updated_hand[letter])])
 
   def deal(self):      
     self.get_vowels()
     self.get_consonants()
 
+  def add_letter(self, letter_list, num):
+    for i in range(num):
+      letter = letter_list[random.randrange(0,len(letter_list))]
+      self.hand[letter] = self.hand.get(letter, 0) + 1
+  
   def get_vowels(self):
-    for i in range(self.num_vowels):
-      vowel = VOWELS[random.randrange(0,len(VOWELS))]
-      self.hand[vowel] = self.hand.get(vowel, 0) + 1
+    self.add_letter(VOWELS, self.num_vowels)
 
   def get_consonants(self):
-    for i in range(self.num_vowels, self.hand_size):    
-      consonant = CONSONANTS[random.randrange(0,len(CONSONANTS))]
-      self.hand[consonant] = self.hand.get(consonant, 0) + 1
+    self.add_letter(CONSONANTS, self.hand_size - self.num_vowels)
 
   def update(self, word):
     for letter in word:

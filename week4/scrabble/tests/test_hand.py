@@ -95,7 +95,7 @@ class HandDisplayTest1(unittest.TestCase):
     self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
   def test(self):
-    self.assert_stdout('e v v n i l l ')
+    self.assert_stdout('e v v n i l l')
 
 class HandDisplayTest2(unittest.TestCase):
   @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
@@ -107,7 +107,7 @@ class HandDisplayTest2(unittest.TestCase):
     self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
   def test(self):
-    self.assert_stdout('e e e e v v y i o o o ')
+    self.assert_stdout('e e e e v v y i o o o')
 
 # Hand.get_vowels()
 VOWEL_SET = set(['a', 'e', 'i', 'o', 'u'])
@@ -242,7 +242,6 @@ class CalculateHandLenTest4(unittest.TestCase):
 # need to figure how to mock the game play
 class HandPlayTest1(unittest.TestCase):
   @unittest.mock.patch('Hand.Hand.set_userword')
-  #@unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
   def mock_set_word_function(self, mock_set_word):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
