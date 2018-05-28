@@ -21,9 +21,3 @@ class PlainTextMessage(Message):
             self.shift = shift
             self.encrypting_dict = self.build_shift_dict(shift)
             self.message_text_encrypted = self.apply_shift(shift)
-
-'''
-#Example test case (PlaintextMessage)
-plaintext = PlainTextMessage('hello', 2)
-print('Expected Output: jgnnq')
-print('Actual Output:', plaintext.get_message_text_encrypted())'''

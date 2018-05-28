@@ -110,7 +110,7 @@ class Message(object):
         + list(self.map_alphabet(alphabet.upper(), shift).items()))
 
     def map_alphabet(self, alphabet, shift):
-        return {l: alphabet[(alphabet.index(l) + shift) - 26] for l in alphabet}
+        return {letter: alphabet[(alphabet.index(letter) + shift) - 26] for letter in alphabet}
 
     def apply_shift(self, shift):
         '''
@@ -124,7 +124,7 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        if 0 <= shift <= 26:
+        if 0 <= shift < 26:
             cipher_dict = self.build_shift_dict(shift)
             return ''.join([cipher_dict[letter] if letter.isalpha() else letter for letter in self.message_text])
 

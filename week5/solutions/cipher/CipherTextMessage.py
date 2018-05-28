@@ -3,9 +3,6 @@ import string
 
 from Message import Message
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-STORY_FILE = os.path.join(current_dir, 'story.txt')
-
 class CipherTextMessage(Message):
     def __init__(self, text):
         Message.__init__(self, text)
@@ -27,24 +24,4 @@ class CipherTextMessage(Message):
         return [real_words + 1 for word in new_words if self.is_word(self.get_valid_words(), word)]
 
     def is_word(self, word_list, word):
-        word = word.lower()
-        word = word.strip(" !@#$%^&*()-_+={}[]|\:;'<>?,./\"")
-        return word in word_list
-
-def get_story_string():
-    f = open(STORY_FILE, "r")
-    story = str(f.read())
-    f.close()
-    return story
-
-def decrypt_story():
-    ciphertext = CiphertextMessage(get_story_string())
-    return ciphertext.decrypt_message()
-
-'''
-#Example test case (CiphertextMessage)
-ciphertext = CipherTextMessage('jgnnq')
-print('Expected Output:', (24, 'hello'))
-print('Actual Output:', ciphertext.decrypt_message())
-ciphertext = CipherTextMessage('Lmlqclqc umpbq: uypk ilmujcbec bcqi npmmd sqsyj')
-print(ciphertext.decrypt_message())'''
+        return word.lower().strip(" !@#$%^&*()-_+={}[]|\:;'<>?,./\"") in word_list
