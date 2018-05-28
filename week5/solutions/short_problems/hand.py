@@ -13,9 +13,9 @@ class Hand(object):
         self.CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
 
         # Deal a new hand
-        self.dealNewHand()
+        self.deal_new()
 
-    def dealNewHand(self):
+    def deal_new(self):
         '''
         Deals a new hand, and sets the hand attribute to the new hand.
         '''
@@ -23,33 +23,33 @@ class Hand(object):
         self.hand = {}
 
         # Build the hand
-        numVowels = self.HAND_SIZE // 3
+        num_vowels = self.HAND_SIZE // 3
     
-        for i in range(numVowels):
+        for i in range(num_vowels):
             x = self.VOWELS[random.randrange(0,len(self.VOWELS))]
             self.hand[x] = self.hand.get(x, 0) + 1
         
-        for i in range(numVowels, self.HAND_SIZE):    
+        for i in range(num_vowels, self.HAND_SIZE):    
             x = self.CONSONANTS[random.randrange(0,len(self.CONSONANTS))]
             self.hand[x] = self.hand.get(x, 0) + 1
             
-    def setDummyHand(self, handString):
+    def set_dummy_hand(self, hand_string):
         '''
         Allows you to set a dummy hand. Useful for testing your implementation.
 
-        handString: A string of letters you wish to be in the hand. Length of this
+        hand_string: A string of letters you wish to be in the hand. Length of this
         string must be equal to self.HAND_SIZE.
 
         This method converts sets the hand attribute to a dictionary
-        containing the letters of handString.
+        containing the letters of hand_string.
         '''
-        assert len(handString) == self.HAND_SIZE, "Length of handString ({0}) must equal length of HAND_SIZE ({1})".format(len(handString), self.HAND_SIZE)
+        assert len(hand_string) == self.HAND_SIZE, "Length of hand_string ({0}) must equal length of HAND_SIZE ({1})".format(len(hand_string), self.HAND_SIZE)
         self.hand = {}
-        for char in handString:
+        for char in hand_string:
             self.hand[char] = self.hand.get(char, 0) + 1
 
 
-    def calculateLen(self):
+    def calculate_len(self):
         '''
         Calculate the length of the hand.
         '''
@@ -92,14 +92,13 @@ class Hand(object):
         return True
 
 
+my_hand = Hand(7)
+print(my_hand)
+print(my_hand.calculate_len())
 
-myHand = Hand(7)
-print(myHand)
-print(myHand.calculateLen())
+my_hand.set_dummy_hand('aazzmsp')
+print(my_hand)
+print(my_hand.calculate_len())
 
-myHand.setDummyHand('aazzmsp')
-print(myHand)
-print(myHand.calculateLen())
-
-myHand.update('za')
-print(myHand)
+my_hand.update('za')
+print(my_hand)
