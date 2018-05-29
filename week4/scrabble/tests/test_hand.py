@@ -10,14 +10,11 @@ from Hand import Hand
 from Score import Score
 from Word import Word
 
-class HandTest(unittest.TestCase):
-  def test(self):
-    self.assertEqual(True, True)
-
 # Hand.get()
 class HandGetTest1(unittest.TestCase):
   def test(self):
     hand = Hand()
+
     self.assertEqual(isinstance(hand.get(), dict), True)
     self.assertEqual(len(hand.get()), 0)
     self.assertEqual(hand.get(), {})
@@ -25,6 +22,7 @@ class HandGetTest1(unittest.TestCase):
 class HandGetTest2(unittest.TestCase):
   def test(self):
     hand = Hand(6)
+
     self.assertEqual(isinstance(hand.get(), dict), True)
     self.assertEqual(len(hand.get()), 0)
     self.assertEqual(hand.get(), {})
@@ -35,6 +33,7 @@ class HandGetTest3(unittest.TestCase):
     hand.deal()
     letters_in_hand = sum(hand.get().values())
     print(hand.get())
+    
     self.assertEqual(isinstance(hand.get(), dict), True)
     self.assertEqual(letters_in_hand, 7)
 
@@ -44,8 +43,10 @@ class HandGetTest4(unittest.TestCase):
     hand.deal()
     letters_in_hand = sum(hand.get().values())
     print(hand.get())
+    
     self.assertEqual(isinstance(hand.get(), dict), True)
     self.assertEqual(letters_in_hand, 6)
+
 
 # Hand.deal()
 class HandDealTest1(unittest.TestCase):
@@ -53,6 +54,7 @@ class HandDealTest1(unittest.TestCase):
     hand = Hand()
     hand.deal()
     letters_in_hand = sum(hand.get().values())
+    
     self.assertEqual(letters_in_hand, 7)
 
 class HandDealTest2(unittest.TestCase):
@@ -60,6 +62,7 @@ class HandDealTest2(unittest.TestCase):
     hand = Hand(6)
     hand.deal()
     letters_in_hand = sum(hand.get().values())
+    
     self.assertEqual(letters_in_hand, 6)
 
 class HandDealTest3(unittest.TestCase):
@@ -67,6 +70,7 @@ class HandDealTest3(unittest.TestCase):
     hand = Hand(8)
     hand.deal()
     letters_in_hand = sum(hand.get().values())
+    
     self.assertEqual(letters_in_hand, 8)
 
 class HandDealTest4(unittest.TestCase):
@@ -74,6 +78,7 @@ class HandDealTest4(unittest.TestCase):
     hand = Hand(100)
     hand.deal()
     letters_in_hand = sum(hand.get().values())
+    
     self.assertEqual(letters_in_hand, 100)
 
 class HandDealTest5(unittest.TestCase):
@@ -81,6 +86,7 @@ class HandDealTest5(unittest.TestCase):
     hand = Hand(0)
     hand.deal()
     letters_in_hand = sum(hand.get().values())
+    
     self.assertEqual(letters_in_hand, 0)
 
 
@@ -92,6 +98,7 @@ class HandDisplayTest1(unittest.TestCase):
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
     hand.updated_hand = {'e':1, 'v':2, 'n':1, 'i':1, 'l':2}
     hand.display()
+    
     self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
   def test(self):
@@ -104,10 +111,12 @@ class HandDisplayTest2(unittest.TestCase):
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
     hand.updated_hand = {'e':4, 'v':2, 'y':1, 'i':1, 'o':3}
     hand.display()
+    
     self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
   def test(self):
     self.assert_stdout('e e e e v v y i o o o')
+
 
 # Hand.get_vowels()
 VOWEL_SET = set(['a', 'e', 'i', 'o', 'u'])
@@ -117,6 +126,7 @@ def vowels_test(self, hand_size):
   number_vowels = sum(hand.get().values())
   expected_number_vowels = hand_size//3
   are_vowels = set(hand.get().keys()) <= VOWEL_SET
+  
   self.assertEqual(number_vowels, expected_number_vowels)
   self.assertEqual(are_vowels, True)
 
@@ -160,6 +170,7 @@ class HandGetVowelsTest4(unittest.TestCase):
     self.assertEqual((set(hand.get().keys()) <= VOWEL_SET), True)'''
     vowels_test(self, 11)
 
+
 # Hand.get_consonants()
 CONSONANT_SET = set(['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
                   'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'])
@@ -170,6 +181,7 @@ def consonant_test(self, hand_size):
   number_consonants = sum(hand.get().values())
   expected_number_consonants = hand_size - hand_size//3
   are_consonants = set(hand.get().keys()) <= CONSONANT_SET
+  
   self.assertEqual(number_consonants, expected_number_consonants)
   self.assertEqual(are_consonants, True)
 
@@ -213,17 +225,20 @@ class HandGetConsonantsTest4(unittest.TestCase):
     self.assertEqual((set(hand.get().keys()) <= CONSONANT_SET), True)'''
     consonant_test(self, 11)
 
+
 # Hand.calculate_len()
 class CalculateHandLenTest1(unittest.TestCase):
   def test(self):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
+    
     self.assertEqual(hand.calculate_len(), 7)
 
 class CalculateHandLenTest2(unittest.TestCase):
   def test(self):
     hand = Hand(15)
     hand.set({'e':5, 'v':2, 'n':4, 'i':2, 'l':2})
+    
     self.assertEqual(hand.calculate_len(), 15)
 
 class CalculateHandLenTest3(unittest.TestCase):
@@ -248,6 +263,7 @@ class HandPlayTest1(unittest.TestCase):
     mock_set_word.return_value = Word('.')
     print('mock_set_word')
     hand.play()
+
     self.assertTrue(mock_set_word.called)
 
   def test(self):
@@ -260,6 +276,7 @@ class HandUpdateTest1(unittest.TestCase):
     hand = Hand()
     hand.updated_hand = {'e':5, 'v':2, 'n':4, 'i':2, 'l':2}
     hand.update('nvn')
+
     self.assertEqual(hand.updated_hand, {'e':5, 'v':1, 'n':2, 'i':2, 'l':2})
 
 class HandUpdateTest2(unittest.TestCase):
@@ -267,6 +284,7 @@ class HandUpdateTest2(unittest.TestCase):
     hand = Hand()
     hand.updated_hand = {'x':5, 'v':2, 'n':4, 'i':2, 'l':2}
     hand.update('xnxnvvxxl')
+
     self.assertEqual(hand.updated_hand, {'x':1, 'v':0, 'n':2, 'i':2, 'l':1})
 
 class HandUpdateTest3(unittest.TestCase):
@@ -274,6 +292,7 @@ class HandUpdateTest3(unittest.TestCase):
     hand = Hand()
     hand.updated_hand = {'x':0, 'v':2, 'n':4, 'i':0, 'l':2}
     hand.update('vnlv')
+
     self.assertEqual(hand.updated_hand, {'x':0, 'v':0, 'n':3, 'i':0, 'l':1})
 
   
@@ -281,6 +300,7 @@ class HandUpdateTest3(unittest.TestCase):
 class HandProcessWordTest1(unittest.TestCase):
   def test(self):
     hand = Hand()
+
     self.assertEqual(hand.process_userword(Word('.')), False)
 
 class HandProcessWordTest2(unittest.TestCase):
@@ -290,6 +310,7 @@ class HandProcessWordTest2(unittest.TestCase):
     hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
     hand.updated_hand = {'e':1, 'v':1, 'n':2, 'i':2, 'l':1}
     hand.process_userword(Word('evil'))
+
     self.assertTrue(mock_evaluate_word.called)
 
   def test(self):
@@ -333,6 +354,7 @@ class HandDisplayTotalScoreTest1(unittest.TestCase):
     hand = Hand()
     hand.score.total_score = 20
     hand.display_total_score()
+
     self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
   def test(self):
@@ -344,6 +366,7 @@ class HandDisplayTotalScoreTest2(unittest.TestCase):
     hand = Hand()
     hand.score.total_score = 150
     hand.display_total_score()
+
     self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
   def test(self):
@@ -356,10 +379,12 @@ class HandDisplayTotalScoreTest3(unittest.TestCase):
     hand.updated_hand = {'f': 1, 'z': 2}
     hand.score.total_score = 10
     hand.display_total_score()
+
     self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
 
   def test(self):
     self.assert_stdout('Total: 10')
+
 
 # Hand.replay()
 class HandReplayTest1(unittest.TestCase):
@@ -369,6 +394,7 @@ class HandReplayTest1(unittest.TestCase):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
     hand.replay()
+
     self.assertTrue(mock_score_reset.called)
     self.assertTrue(mock_play.called)
 
@@ -381,6 +407,7 @@ class HandReplayTest2(unittest.TestCase):
   def mock_replay_function(self, mock_play, mock_score_reset):
     hand = Hand()
     hand.replay()
+
     self.assertFalse(mock_score_reset.called)
     self.assertFalse(mock_play.called)
 
@@ -392,13 +419,15 @@ class HandReplayTest2(unittest.TestCase):
 class HandPlayNewTest1(unittest.TestCase):
   @unittest.mock.patch('Hand.Hand.deal')
   @unittest.mock.patch('Hand.Hand.play')
-  def mock_replay_function(self, mock_deal, mock_play):
+  def mock_play_new_function(self, mock_deal, mock_play):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
-    hand.play()
+    hand.play_new()
+
     self.assertTrue(mock_deal.called)
     self.assertTrue(mock_play.called)
 
-
+  def test(self):
+    self.mock_play_new_function()
 
 

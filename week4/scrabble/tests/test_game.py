@@ -8,6 +8,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.par
 from Game import Game
 from Hand import Hand
 
+# Game.get_status()
 class GameGetTest1(unittest.TestCase):
   def test(self):
     self.assertEqual(Game().get_status(), 'n')
@@ -16,15 +17,18 @@ class GameGetTest2(unittest.TestCase):
   def test(self):
     game = Game()
     game.status = 'e'
+
     self.assertEqual(game.get_status(), 'e')
 
+
+# Game.get_status_dict()
 class GameGetStatusDictTest1(unittest.TestCase):
   def test(self):
     game = Game()
+
     self.assertEqual(game.get_status_dict(), game.status_dict)
     self.assertEqual(game.get_status_dict() is game.status_dict, False)
     self.assertIsInstance(game.get_status_dict(), dict)
-
 
 
 #Game.start()
@@ -62,6 +66,7 @@ class GameStartTest2(unittest.TestCase):
   def test(self):
     self.mock_game_start_function()
 
+
 #Game.play()
 class GamePlayTest1(unittest.TestCase):
   @unittest.mock.patch('Game.Game.play_new_hand')  
@@ -86,12 +91,12 @@ class GamePlayTest2(unittest.TestCase):
   def test(self):
     self.mock_game_play_function()
 
+
 #Game.play_new_hand()
 class GamePlayNewHandTest1(unittest.TestCase):
   @unittest.mock.patch('Game.Game.set_hand')
   @unittest.mock.patch('Game.Game.set_handsize')  
   @unittest.mock.patch('Hand.Hand.play_new')
-
   def mock_play_new_hand_function(self, mock_set_hand, mock_set_handsize, mock_hand_play_new):
     game = Game()
     game.play_new_hand()
@@ -103,10 +108,10 @@ class GamePlayNewHandTest1(unittest.TestCase):
   def test(self):
     self.mock_play_new_hand_function()
 
+
 #Game.replay_hand()
 class GameReplayHandTest1(unittest.TestCase): 
   @unittest.mock.patch('Hand.Hand.replay')
-
   def mock_replay_hand_function(self, mock_hand_replay):
     game = Game()
     game.replay_hand()
@@ -115,6 +120,7 @@ class GameReplayHandTest1(unittest.TestCase):
 
   def test(self):
     self.mock_replay_hand_function()
+
 
 #Game.exit()
 class GameExitTest1(unittest.TestCase):
