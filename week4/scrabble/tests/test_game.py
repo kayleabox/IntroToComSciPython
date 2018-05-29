@@ -6,6 +6,7 @@ import unittest.mock
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
 from Game import Game
+from Hand import Hand
 
 class GameGetTest1(unittest.TestCase):
   def test(self):
@@ -29,11 +30,12 @@ class GameGetStatusDictTest1(unittest.TestCase):
 #Game.start()
 class GameStartTest1(unittest.TestCase):
   @unittest.mock.patch('Game.Game.set_status')
+  @unittest.mock.patch('Game.Game.get_status_from_user')
   @unittest.mock.patch('Game.Game.get_status')
   @unittest.mock.patch('Game.Game.play')  
-  def mock_game_start_function(self, mock_set_status, mock_get_status, mock_play):
+  def mock_game_start_function(self, mock_set_status, mock_get_status_from_user, mock_get_status, mock_play):
     game = Game()
-    mock_get_status.side_effect = ['n', 'e']
+    mock_get_status_from_user.side_effect = ['n', 'e']
     game.start()
 
     self.assertTrue(mock_set_status.called)
@@ -45,11 +47,12 @@ class GameStartTest1(unittest.TestCase):
 
 class GameStartTest2(unittest.TestCase):
   @unittest.mock.patch('Game.Game.set_status')
+  @unittest.mock.patch('Game.Game.get_status_from_user')
   @unittest.mock.patch('Game.Game.get_status')
   @unittest.mock.patch('Game.Game.play')  
-  def mock_game_start_function(self, mock_set_status, mock_get_status, mock_play):
+  def mock_game_start_function(self, mock_set_status, mock_get_status_from_user, mock_get_status, mock_play):
     game = Game()
-    mock_get_status.side_effect = ['r', 'e']
+    mock_get_status_from_user.side_effect = ['r', 'e']
     game.start()
 
     self.assertTrue(mock_set_status.called)
@@ -82,14 +85,40 @@ class GamePlayTest2(unittest.TestCase):
 
   def test(self):
     self.mock_game_play_function()
-    
-#Game.play_new_hand()
 
+#Game.play_new_hand()
+class GamePlayNewHandTest1(unittest.TestCase):
+  @unittest.mock.patch('Game.Game.set_hand')
+  @unittest.mock.patch('Game.Game.set_handsize')  
+  @unittest.mock.patch('Hand.Hand.play_new')
+
+  def mock_play_new_hand_function(self, mock_set_hand, mock_set_handsize, mock_hand_play_new):
+    game = Game()
+    game.play_new_hand()
+
+    self.assertTrue(mock_set_hand.called)
+    self.assertTrue(mock_set_handsize.called)
+    self.assertTrue(mock_hand_play_new.called)
+
+  def test(self):
+    self.mock_play_new_hand_function()
 
 #Game.replay_hand()
+class GameReplayHandTest1(unittest.TestCase): 
+  @unittest.mock.patch('Hand.Hand.replay')
 
+  def mock_replay_hand_function(self, mock_hand_replay):
+    game = Game()
+    game.replay_hand()
+
+    self.assertTrue(mock_hand_replay.called)
+
+  def test(self):
+    self.mock_replay_hand_function()
 
 #Game.exit()
-
+class GameExitTest1(unittest.TestCase):
+  def test(self):
+    self.assertEqual(Game().exit(), None)
 
 #Game.set_hand_size
