@@ -1,7 +1,7 @@
 import os
 import string
 
-from Message import Message
+from message import Message
 
 class CipherTextMessage(Message):
     def __init__(self, text):
@@ -20,8 +20,7 @@ class CipherTextMessage(Message):
         return {decrypted_text.index(element) : self.count_real_words(element.split(' ')) for element in decrypted_text}
 
     def count_real_words(self, new_words):
-        real_words = 0 
-        return [real_words + 1 for word in new_words if self.is_word(self.get_valid_words(), word)]
+        return len([word for word in new_words if self.is_word(self.get_valid_words(), word)])
 
     def is_word(self, word_list, word):
         return word.lower().strip(" !@#$%^&*()-_+={}[]|\:;'<>?,./\"") in word_list

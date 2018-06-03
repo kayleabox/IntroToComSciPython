@@ -3,7 +3,7 @@ import string
 import sys
 import unittest
 
-from Message import Message
+from message import Message
 
 class MessageGetTest(unittest.TestCase):
   def test(self):
@@ -26,14 +26,15 @@ class MessageBuildShiftDictionaryTest(unittest.TestCase):
 class MessageMapAlphabetTest1(unittest.TestCase):
   def test(self):
     message = Message('hi')
-    self.assertEquals(message.map_alphabet(string.ascii_lowercase, 2), {'a': 'c', 'b': 'd', 'c': 'e', 'd': 'f', 'e': 'g', 'f': 'h', 'g': 'i', 'h': 'j', 'i': 'k', 'j': 'l', 'k': 'm', 'l': 'n', 'm': 'o', 'n': 'p', 'o': 'q', 'p': 'r', 'q': 's', 'r': 't', 's': 'u', 't': 'v', 'u': 'w', 'v': 'x', 'w': 'y', 'x': 'z', 'y': 'a', 'z': 'b'})
-    self.assertIsInstance(message.map_alphabet(string.ascii_lowercase, 2), dict)
+    self.assertEquals(message.map_alphabet([string.ascii_lowercase, string.ascii_uppercase], 2), {'a': 'c', 'b': 'd', 'c': 'e', 'd': 'f', 'e': 'g', 'f': 'h', 'g': 'i', 'h': 'j', 'i': 'k', 'j': 'l', 'k': 'm', 'l': 'n', 'm': 'o', 'n': 'p', 'o': 'q', 'p': 'r', 'q': 's', 'r': 't', 's': 'u', 't': 'v', 'u': 'w', 'v': 'x', 'w': 'y', 'x': 'z', 'y': 'a', 'z': 'b', 'A': 'C', 'B': 'D', 'C': 'E', 'D': 'F', 'E': 'G', 'F': 'H', 'G': 'I', 'H': 'J', 'I': 'K', 'J': 'L', 'K': 'M', 'L': 'N', 'M': 'O', 'N': 'P', 'O': 'Q', 'P': 'R', 'Q': 'S', 'R': 'T', 'S': 'U', 'T': 'V', 'U': 'W', 'V': 'X', 'W': 'Y', 'X': 'Z', 'Y': 'A', 'Z': 'B'})
+    self.assertIsInstance(message.map_alphabet([string.ascii_lowercase, string.ascii_uppercase], 2), dict)
 
-class MessageMapAlphabetTest2(unittest.TestCase):
+#only need the first one if I leave the change to map_alphabet that take an array of upper and lower case ascii letters
+'''class MessageMapAlphabetTest2(unittest.TestCase):
   def test(self):
     message = Message('hi')
     self.assertEquals(message.map_alphabet(string.ascii_uppercase, 2), {'A': 'C', 'B': 'D', 'C': 'E', 'D': 'F', 'E': 'G', 'F': 'H', 'G': 'I', 'H': 'J', 'I': 'K', 'J': 'L', 'K': 'M', 'L': 'N', 'M': 'O', 'N': 'P', 'O': 'Q', 'P': 'R', 'Q': 'S', 'R': 'T', 'S': 'U', 'T': 'V', 'U': 'W', 'V': 'X', 'W': 'Y', 'X': 'Z', 'Y': 'A', 'Z': 'B'})
-    self.assertIsInstance(message.map_alphabet(string.ascii_lowercase, 2), dict)
+    self.assertIsInstance(message.map_alphabet(string.ascii_uppercase, 2), dict)'''
 
 class MessageApplyShiftTest(unittest.TestCase):
   def test(self):

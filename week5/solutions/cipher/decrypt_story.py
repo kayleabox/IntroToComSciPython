@@ -1,6 +1,6 @@
 import os
 
-from CipherTextMessage import CipherTextMessage
+from cipher_text_message import CipherTextMessage
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 STORY_FILE = os.path.join(current_dir, 'story.txt')

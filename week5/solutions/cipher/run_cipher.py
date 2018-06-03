@@ -1,7 +1,7 @@
-from CipherTextMessage import CipherTextMessage
+from cipher_text_message import CipherTextMessage
 from decrypt_story import decrypt_story
-from Message import Message
-from PlainTextMessage import PlainTextMessage
+from message import Message
+from plain_text_message import PlainTextMessage
 
 message = Message('hello')
 print(message.build_shift_dict(6))

@@ -14,15 +14,17 @@ class Message(object):
         return self.valid_words[:]
         
     def build_shift_dict(self, shift):
-        alphabet = string.ascii_lowercase
-        return dict(list(self.map_alphabet(alphabet, shift).items()) 
-        + list(self.map_alphabet(alphabet.upper(), shift).items()))
+        return self.map_alphabet([string.ascii_lowercase, string.ascii_uppercase], shift)
 
-    def map_alphabet(self, alphabet, shift):
-        return {letter: alphabet[(alphabet.index(letter) + shift) - 26] for letter in alphabet}
+    def map_alphabet(self, alphabets, shift):
+        def mapped_letter(letter, alphabet):
+          return alphabet[(alphabet.index(letter) + shift) - 26]
+        return {letter: mapped_letter(letter, alphabet) for alphabet in alphabets for letter in alphabet}
 
     def apply_shift(self, shift):
         if 0 <= shift < 26:
             cipher_dict = self.build_shift_dict(shift)
-            return ''.join([cipher_dict[char] if char.isalpha() else char for char in self.get_message_text()])
+            return ''.join([cipher_dict[char] 
+                if char.isalpha() else char 
+                for char in self.get_message_text()])
         #return ''.join([self.build_shift_dict(shift)[char] if char.isalpha() else char for char in self.get_message_text() if 0 <= shift < 26])

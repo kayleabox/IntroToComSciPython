@@ -2,7 +2,7 @@ import os
 import sys
 import unittest
 
-from CipherTextMessage import CipherTextMessage
+from cipher_text_message import CipherTextMessage
 
 class CipherTextMessage1(unittest.TestCase):
   def test(self):

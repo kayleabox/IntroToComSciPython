@@ -2,7 +2,7 @@ import os
 import sys
 import unittest
 
-from PlainTextMessage import PlainTextMessage
+from plain_text_message import PlainTextMessage
 
 class PlainTextMessageGetShiftTest1(unittest.TestCase):
   def test(self):
