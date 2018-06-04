@@ -1,12 +1,10 @@
-import os
-import sys
 import unittest
 
-from ProblemSet4.load_words import load_words
-#from ProblemSet4.computer_player import play_computer_hand
-from ProblemSet4.single_player import get_word_score
-from ProblemSet4.single_player import is_valid_word
-from ProblemSet4.single_player import update_hand
+from load_words import load_words
+#from computer_player import play_computer_hand
+from single_player import get_word_score
+from single_player import is_valid_word
+from single_player import update_hand
 
 
 class GetWordScore1(unittest.TestCase):
@@ -65,19 +63,19 @@ class WordIsValid3(unittest.TestCase):
     word = 'honey'
     self.assertEqual(is_valid_word(word, hand, word_list), False)
 
-class WordIsValid3(unittest.TestCase):
+class WordIsValid4(unittest.TestCase):
   def test(self):
     hand = {'e':1, 'v':2, 'n':1, 'i':1, 'l':2}
     word = 'evil'
     self.assertEqual(is_valid_word(word, hand, word_list), True)
 
-class WordIsValid4(unittest.TestCase):
+class WordIsValid5(unittest.TestCase):
   def test(self):
     hand = {'e':1, 'v':2, 'n':1, 'i':1, 'l':2}
     word = ''
     self.assertEqual(is_valid_word(word, hand, word_list), False)
 
-class WordIsValid5(unittest.TestCase):
+class WordIsValid6(unittest.TestCase):
   def test(self):
     hand = {'e':1, 'v':2, 'n':1, 'i':1, 'l':2}
     word = 'evvni'
