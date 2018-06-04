@@ -301,25 +301,25 @@ class HandProcessWordTest1(unittest.TestCase):
   def test(self):
     hand = Hand()
 
-    self.assertEqual(hand.process_userword(Word('.')), False)
+    self.assertEqual(hand.check_user_is_playing(Word('.')), False)
 
 class HandProcessWordTest2(unittest.TestCase):
   @unittest.mock.patch('Hand.Hand.evaluate_word')
-  def mock_process_word_function(self, mock_evaluate_word):
+  def mock_check_user_is_playing_function(self, mock_evaluate_word):
     hand = Hand()
     hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
     hand.updated_hand = {'e':1, 'v':1, 'n':2, 'i':2, 'l':1}
-    hand.process_userword(Word('evil'))
+    hand.check_user_is_playing(Word('evil'))
 
     self.assertTrue(mock_evaluate_word.called)
 
   def test(self):
-    self.mock_process_word_function()
+    self.mock_check_user_is_playing_function()
 
 
 # Hand.evaluate_word()
 class HandEvaluateWordTest1(unittest.TestCase):
-  @unittest.mock.patch('Score.Score.calculate_word_score')
+  @unittest.mock.patch('Score.Score.calculate')
   @unittest.mock.patch('Hand.Hand.update')
   def mock_evaluate_word_function(self, mock_calculate_score, mock_update_hand):
     hand = Hand()

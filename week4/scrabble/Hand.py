@@ -24,11 +24,6 @@ class Hand():
     print(self.get_hand_string())
 
   def get_hand_string(self):
-    '''hand = ''
-    for letter in self.updated_hand.keys():
-      for j in range(self.updated_hand[letter]):
-        hand += letter + ' '
-    return hand'''
     return ' '.join([letter for letter in self.updated_hand.keys() for j in range(self.updated_hand[letter])])
 
   def deal(self):      
@@ -54,19 +49,20 @@ class Hand():
     return sum(self.get().values())
 
   def play(self):
-    self.updated_hand = self.hand.copy()
+    self.updated_hand = self.hand.copy() 
+    self.get_words_from_user()
+    self.display_total_score()
+
+  def get_words_from_user(self):
     while sum(self.updated_hand.values()) > 0: 
       self.display()
-      user_word = self.set_userword()
-      if self.process_userword(user_word) == False:
+      if self.check_user_is_playing(self.set_userword()) == False:
         break
-                  
-    self.display_total_score()
 
   def set_userword(self):
       return Word(input('Please enter a word or "." to indicate that you are finished: '))
 
-  def process_userword(self, user_word):
+  def check_user_is_playing(self, user_word):
       if user_word.get() == '.':
         return False     
       else:
@@ -76,13 +72,13 @@ class Hand():
     if not user_word.is_valid(self.hand):
       print('invalid word \n')
     else:
-      self.score.calculate_word_score(user_word, self.hand_size)
+      self.score.calculate(user_word, self.hand_size)
       self.update(user_word.get())
 
   def display_total_score(self):
     if sum(self.updated_hand.values()) <= 0:
       print('Ran out of letters!')
-    print('Total: ' + str(self.score.total_score))
+    print('Total: ' + str(self.score.get_total()))
 
   def replay(self):
     if self.hand != {}:
