@@ -6,9 +6,9 @@ import unittest.mock
 
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from Hand import Hand
-from Score import Score
-from Word import Word
+from hand import Hand
+from score import Score
+from word import Word
 
 # Hand.get()
 class HandGetTest1(unittest.TestCase):
@@ -275,7 +275,7 @@ class CalculateHandLenTest4(unittest.TestCase):
 # Hand.play()
 # need to figure how to mock the game play
 class HandPlayTest1(unittest.TestCase):
-  @unittest.mock.patch('Hand.Hand.set_userword')
+  @unittest.mock.patch('hand.Hand.set_userword')
   def mock_set_word_function(self, mock_set_word):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
@@ -288,8 +288,8 @@ class HandPlayTest1(unittest.TestCase):
     self.mock_set_word_function()
 
 class HandPlayTest2(unittest.TestCase):
-  @unittest.mock.patch('Hand.Hand.get_words_from_user')
-  @unittest.mock.patch('Hand.Hand.display_total_score')
+  @unittest.mock.patch('hand.Hand.get_words_from_user')
+  @unittest.mock.patch('hand.Hand.display_total_score')
   def mock_set_word_function(self, mock_get_words_from_user, mock_display_total_score):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
@@ -338,7 +338,7 @@ class HandCheckUserIsPlayingTest1(unittest.TestCase):
     self.assertEqual(hand.check_user_is_playing(Word('.')), False)
 
 class HandCheckUserIsPlayingTest2(unittest.TestCase):
-  @unittest.mock.patch('Hand.Hand.evaluate_word')
+  @unittest.mock.patch('hand.Hand.evaluate_word')
   def mock_check_user_is_playing_function(self, mock_evaluate_word):
     hand = Hand()
     hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
@@ -351,7 +351,7 @@ class HandCheckUserIsPlayingTest2(unittest.TestCase):
     self.mock_check_user_is_playing_function()
 
 class HandCheckUserIsPlayingTest3(unittest.TestCase):
-  @unittest.mock.patch('Hand.Hand.evaluate_word')
+  @unittest.mock.patch('hand.Hand.evaluate_word')
   def mock_check_user_is_playing_function(self, mock_evaluate_word):
     hand = Hand()
     hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
@@ -366,8 +366,8 @@ class HandCheckUserIsPlayingTest3(unittest.TestCase):
 
 # Hand.evaluate_word()
 class HandEvaluateWordTest1(unittest.TestCase):
-  @unittest.mock.patch('Score.Score.calculate')
-  @unittest.mock.patch('Hand.Hand.update')
+  @unittest.mock.patch('score.Score.calculate')
+  @unittest.mock.patch('hand.Hand.update')
   def mock_evaluate_word_function(self, mock_calculate_score, mock_update_hand):
     hand = Hand()
     hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
@@ -435,8 +435,8 @@ class HandDisplayTotalScoreTest3(unittest.TestCase):
 
 # Hand.replay()
 class HandReplayTest1(unittest.TestCase):
-  @unittest.mock.patch('Hand.Hand.play')
-  @unittest.mock.patch('Score.Score.reset')
+  @unittest.mock.patch('hand.Hand.play')
+  @unittest.mock.patch('score.Score.reset')
   def mock_replay_function(self, mock_play, mock_score_reset):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
@@ -449,8 +449,8 @@ class HandReplayTest1(unittest.TestCase):
     self.mock_replay_function()
 
 class HandReplayTest2(unittest.TestCase):
-  @unittest.mock.patch('Hand.Hand.play')
-  @unittest.mock.patch('Score.Score.reset')
+  @unittest.mock.patch('hand.Hand.play')
+  @unittest.mock.patch('score.Score.reset')
   def mock_replay_function(self, mock_play, mock_score_reset):
     hand = Hand()
     hand.replay()
@@ -464,8 +464,8 @@ class HandReplayTest2(unittest.TestCase):
 
 # Hand.play_new()
 class HandPlayNewTest1(unittest.TestCase):
-  @unittest.mock.patch('Hand.Hand.deal')
-  @unittest.mock.patch('Hand.Hand.play')
+  @unittest.mock.patch('hand.Hand.deal')
+  @unittest.mock.patch('hand.Hand.play')
   def mock_play_new_function(self, mock_deal, mock_play):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})

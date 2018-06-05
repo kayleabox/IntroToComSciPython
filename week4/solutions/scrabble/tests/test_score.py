@@ -5,8 +5,8 @@ import unittest.mock
 
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from Score import Score
-from Word import Word
+from score import Score
+from word import Word
 
 #Score.get_total()
 #Score.get_round()
@@ -35,7 +35,7 @@ class ScoreTest2(unittest.TestCase):
 #Score.calculate()
 score = Score()
 class ScoreCalculateTest(unittest.TestCase):
-  @unittest.mock.patch('Score.Score.display')
+  @unittest.mock.patch('score.Score.display')
   def mock_display_function(self, mock_display_score):
     score.calculate(Word('zebra'), 7)
 
@@ -47,7 +47,7 @@ class ScoreCalculateTest(unittest.TestCase):
     self.assertEqual(score.get_total(), 80)
 
 class ScoreCalculateTest2(unittest.TestCase):
-  @unittest.mock.patch('Score.Score.display')
+  @unittest.mock.patch('score.Score.display')
   def mock_display_function(self, mock_display_score):
     score.calculate(Word('zebra'), 5)
 
@@ -61,8 +61,8 @@ class ScoreCalculateTest2(unittest.TestCase):
 
 #Score.display()
 class ScoreDisaplyTest1(unittest.TestCase):
-  @unittest.mock.patch('Score.Score.get_total')
-  @unittest.mock.patch('Score.Score.get_round')
+  @unittest.mock.patch('score.Score.get_total')
+  @unittest.mock.patch('score.Score.get_round')
   def mock_get_function(self, mock_get_total, mock_get_round):
     score.display(Word('zebra'))
 
