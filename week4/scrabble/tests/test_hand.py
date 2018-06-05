@@ -90,6 +90,24 @@ class HandDealTest5(unittest.TestCase):
     self.assertEqual(letters_in_hand, 0)
 
 
+# Hand.get_hand_string()
+class HandGetStringTest1(unittest.TestCase):
+  def test(self):
+    hand = Hand()
+    hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
+    hand.updated_hand = {'e':1, 'v':2, 'n':1, 'i':1, 'l':2}
+
+    self.assertEqual(hand.get_hand_string(), 'e v v n i l l')
+
+class HandGetStringTest2(unittest.TestCase):
+  def test(self):
+    hand = Hand()
+    hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
+    hand.updated_hand = {'e':4, 'v':2, 'y':1, 'i':1, 'o':3}
+    
+    self.assertEqual(hand.get_hand_string(), 'e e e e v v y i o o o')
+
+
 # Hand.display()
 class HandDisplayTest1(unittest.TestCase):
   @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
@@ -113,6 +131,7 @@ class HandDisplayTest2(unittest.TestCase):
     hand.display()
     
     self.assertEqual(mock_stdout.getvalue().strip('\n'), expected_output)
+    self.assertEqual(hand.get_hand_string(), 'e e e e v v y i o o o')
 
   def test(self):
     self.assert_stdout('e e e e v v y i o o o')
@@ -260,11 +279,26 @@ class HandPlayTest1(unittest.TestCase):
   def mock_set_word_function(self, mock_set_word):
     hand = Hand()
     hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
-    mock_set_word.return_value = Word('.')
-    print('mock_set_word')
+    mock_set_word.side_effect = [Word('hi'), Word('evil'), Word('.')]
     hand.play()
 
     self.assertTrue(mock_set_word.called)
+
+  def test(self):
+    self.mock_set_word_function()
+
+class HandPlayTest2(unittest.TestCase):
+  @unittest.mock.patch('Hand.Hand.get_words_from_user')
+  @unittest.mock.patch('Hand.Hand.display_total_score')
+  def mock_set_word_function(self, mock_get_words_from_user, mock_display_total_score):
+    hand = Hand()
+    hand.set({'e':1, 'v':2, 'n':1, 'i':1, 'l':2})
+    mock_get_words_from_user.side_effect = [None, None, None]
+    mock_display_total_score.side_effect = [None, None, None]
+    hand.play()
+
+    self.assertTrue(mock_get_words_from_user.called)
+    self.assertTrue(mock_display_total_score.called)
 
   def test(self):
     self.mock_set_word_function()
@@ -296,20 +330,33 @@ class HandUpdateTest3(unittest.TestCase):
     self.assertEqual(hand.updated_hand, {'x':0, 'v':0, 'n':3, 'i':0, 'l':1})
 
   
-# Hand.process_userword()
-class HandProcessWordTest1(unittest.TestCase):
+# Hand.check_user_is_playing()
+class HandCheckUserIsPlayingTest1(unittest.TestCase):
   def test(self):
     hand = Hand()
 
     self.assertEqual(hand.check_user_is_playing(Word('.')), False)
 
-class HandProcessWordTest2(unittest.TestCase):
+class HandCheckUserIsPlayingTest2(unittest.TestCase):
   @unittest.mock.patch('Hand.Hand.evaluate_word')
   def mock_check_user_is_playing_function(self, mock_evaluate_word):
     hand = Hand()
     hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
     hand.updated_hand = {'e':1, 'v':1, 'n':2, 'i':2, 'l':1}
     hand.check_user_is_playing(Word('evil'))
+
+    self.assertTrue(mock_evaluate_word.called)
+
+  def test(self):
+    self.mock_check_user_is_playing_function()
+
+class HandCheckUserIsPlayingTest3(unittest.TestCase):
+  @unittest.mock.patch('Hand.Hand.evaluate_word')
+  def mock_check_user_is_playing_function(self, mock_evaluate_word):
+    hand = Hand()
+    hand.set({'e':1, 'v':1, 'n':2, 'i':2, 'l':1})
+    hand.updated_hand = {'e':1, 'v':1, 'n':2, 'i':2, 'l':1}
+    hand.check_user_is_playing(Word('soup'))
 
     self.assertTrue(mock_evaluate_word.called)
 
