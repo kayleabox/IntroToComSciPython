@@ -1,7 +1,7 @@
 import random
 
-from score import Score
-from word import Word
+from Score import Score
+from Word import Word
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'

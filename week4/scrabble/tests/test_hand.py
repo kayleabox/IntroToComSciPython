@@ -6,9 +6,9 @@ import unittest.mock
 
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from hand import Hand
-from score import Score
-from word import Word
+from Hand import Hand
+from Score import Score
+from Word import Word
 
 # Hand.get()
 class HandGetTest1(unittest.TestCase):

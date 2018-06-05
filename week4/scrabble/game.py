@@ -1,4 +1,4 @@
-from hand import Hand
+from Hand import Hand
 
 class Game(): 
   def __init__(self):

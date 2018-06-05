@@ -5,8 +5,8 @@ import unittest.mock
 
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from game import Game
-from hand import Hand
+from Game import Game
+from Hand import Hand
 
 # Game.get_status()
 class GameGetTest1(unittest.TestCase):
