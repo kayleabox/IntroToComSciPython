@@ -4,7 +4,7 @@ import unittest
 
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from Score import Score
+from score import Score
 
 class ScoreTest(unittest.TestCase):
   def test(self):

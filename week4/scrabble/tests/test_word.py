@@ -4,7 +4,7 @@ import unittest
 
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from Word import Word
+from word import Word
 
 # Word.get()
 class WordGetTest1(unittest.TestCase):
